@@ -1,5 +1,6 @@
 // eslint-disable  이걸 적으면 밑에서 사용하지 않은 변수에 대한 warning을 터미널에 출력해주지 않음.
-
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
