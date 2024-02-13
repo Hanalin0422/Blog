@@ -17,7 +17,8 @@ function App() {
   let minutes = ('0' + now.getMinutes()).slice(-2);
   let seconds = ('0' + now.getSeconds()).slice(-2); 
 
-  let [times, setTimes] = useState([]);
+  let [times, setTimes] = useState(['', '', '']);
+  let time = month + '월 ' + day + '일 ' + hours + ':'+ minutes + ':' + seconds + ' 발행';
 
   return (
     <div className="App">
@@ -35,6 +36,10 @@ function App() {
               <button className='btn clear' onClick={()=>{
                   let copy=[...subtitle];
                   let copyLike=[...like];
+                  let copyTime = [...times];
+                  copyTime.splice(i, 1);
+                  setTimes(copyTime);
+
                   copy.splice(i, 1);
                   copyLike.splice(i, 1);
                   subtitleChange(copy);
@@ -72,7 +77,7 @@ function App() {
           subtitleChange(copy);
           setLike(copyLike);
 
-          let time = month + '월 ' + day + '일 ' + hours + ':'+ minutes + ':' + seconds + ' 발행';
+          
           let copyTime = [...times];
           copyTime.unshift(time);
           setTimes(copyTime);
