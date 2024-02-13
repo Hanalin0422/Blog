@@ -4,6 +4,7 @@
   font-size: 17px;
   font-family: Arial, sans-serif;
 	font-weight: bold;
+  position: relative;
 }
 
 div{
@@ -105,8 +106,11 @@ button.btn:hover {
   padding: 20px;
   background-color: #eee;
   text-align: left;
+  justify-content: left;
 }
 
-h4{
+.bestList{
   cursor: pointer;
+  display: inline-block;
+  padding: 0 10px 0;
 }
