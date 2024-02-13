@@ -3,7 +3,6 @@
   justify-content: center;
   font-size: 17px;
   font-family: Arial, sans-serif;
-	font-weight: bold;
   position: relative;
 }
 
@@ -51,6 +50,10 @@ button.btn:hover {
 	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
 }
 
+.btn.clear{
+  display: flex;
+  margin-left: 80%;
+}
 
 .black-nav{
   display: flex;

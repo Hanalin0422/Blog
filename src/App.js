@@ -7,6 +7,8 @@ function App() {
   let [subtitle, subtitleChange] = useState(['오늘의 점심 추천', '강남 우동 맛집', '파이썬 독학']);
   let [like, setLike] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
+  let [title, setTitle] = useState(0);
+  let [inputValue, setInputValue] = useState('');
 
 
   return (
@@ -19,31 +21,55 @@ function App() {
         subtitle.map(function(num ,i){
           return(
             <div className="list" key={i}>
-              <h4 className="bestList" onClick={()=> modalView()}>{subtitle[i]}</h4>
+              <h4 className="bestList" onClick={()=> modalView(i)}>{subtitle[i]}</h4>
               <span id="icon" onClick={()=> likefunction(i)}> 👍 </span> {like[i]}
               <p>2월 18일 발행</p>
+              <button className='btn clear' onClick={()=>{
+                  let copy=[...subtitle];
+                  let copyLike=[...like];
+                  copy.splice(i, 1);
+                  copyLike.splice(i, 1);
+                  subtitleChange(copy);
+                  setLike(copyLike);
+              }}>삭제</button>
             </div>
           )
         })
       }
-      {modal ? <Modal subtitle={subtitle} subtitleChange={subtitleChange}/> : null}
+      {
+        modal ? <Modal subtitle={subtitle} title={title} subtitleChange={subtitleChange}/> : null
+      }
+
       <button className="btn" onClick={()=>{
         let sortArray = [...subtitle];
         sortArray.sort();
         subtitleChange(sortArray);
       }}>가나다 순으로 정렬</button>
+
+      {/* onChange는 사용자가 입력을 할때마다 입력한 함수가 실행됨, 유사품으로 onInput()이 있음 
+      e는 보통 event 객체를 말함. 보통 인수는 e를 많이 사용
+      내 상위 요소의 이벤트 버블링을 없애는 방법은 e.stopPropagation()
+      */}
+      <input id="textInput" onChange={(e)=>{
+        setInputValue(e.target.value);
+      }} />
+      <button id="btn--input" onClick={()=>{
+        let copy = [...subtitle];
+        let copyLike = [...like];
+        copy.unshift(inputValue);
+        copyLike.unshift(0);
+        subtitleChange(copy);
+        setLike(copyLike);
+      }}> 글 추가하기 </button>
+
+
     </div>
   );
-
-  // props를 이용하여 부모 -> 자식 state를 전송할 수 있음, 오로지 부모->자식만 가능.
-  // 부모 -> 자식 state 전송하는 법
-  // 1. <자식 컴포넌트 작명={state이름}>
-  // 2. props 파라미터 등록후 props.작명 사용
 
   function Modal(props){
     return (
       <div className="modal">
-        <h4>{props.subtitle[0]}</h4>
+        <h4>{props.subtitle[props.title]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
         <button className='btn' onClick={()=>{
@@ -53,11 +79,12 @@ function App() {
     );
   }
 
-  function modalView(){
+  function modalView(i){
     if(modal == true){
       setModal(false);
     }else{
       setModal(true);
+      setTitle(i);
     }
   }
 
