@@ -114,3 +114,26 @@ function App() {
 }
 
 export default App;
+
+
+
+// class를 이용해서도 새로운 컴포넌트를 만들 수 있음.
+// 근데 class는 옛날 문법, 그리고 귀찮으니까 function을 쓰기
+// constructor, super, render 이 세개가 기본적으로 쓰는 템플릿이라고 생각하면됨.
+// class Modal12 extends React.Component{
+//   constructor(props){
+//     super(props);
+//     this.state = {
+//       name : 'kim',
+//       age : 20
+//     }
+//   }
+//   render(){
+//     return(
+//       <div>안녕 {this.state.name}</div>
+//       <button onClick={()=>{
+//         this.setState({age:21})
+//       }}>버튼</button>
+//     )
+//   }
+// }
