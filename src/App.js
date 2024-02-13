@@ -10,6 +10,14 @@ function App() {
   let [title, setTitle] = useState(0);
   let [inputValue, setInputValue] = useState('');
 
+  let now = new Date();
+  let month = ('0' + (now.getMonth() + 1)).slice(-2);
+  let day = ('0' + now.getDate()).slice(-2);
+  let hours = ('0' + now.getHours()).slice(-2); 
+  let minutes = ('0' + now.getMinutes()).slice(-2);
+  let seconds = ('0' + now.getSeconds()).slice(-2); 
+
+  let [times, setTimes] = useState([]);
 
   return (
     <div className="App">
@@ -23,7 +31,7 @@ function App() {
             <div className="list" key={i}>
               <h4 className="bestList" onClick={()=> modalView(i)}>{subtitle[i]}</h4>
               <span id="icon" onClick={()=> likefunction(i)}> 👍 </span> {like[i]}
-              <p>2월 18일 발행</p>
+              <p>{times[i]}</p>
               <button className='btn clear' onClick={()=>{
                   let copy=[...subtitle];
                   let copyLike=[...like];
@@ -54,12 +62,22 @@ function App() {
         setInputValue(e.target.value);
       }} />
       <button id="btn--input" onClick={()=>{
-        let copy = [...subtitle];
-        let copyLike = [...like];
-        copy.unshift(inputValue);
-        copyLike.unshift(0);
-        subtitleChange(copy);
-        setLike(copyLike);
+        if(inputValue== ''){
+          alert('내용을 입력해 주세요!');
+        }else{
+          let copy = [...subtitle];
+          let copyLike = [...like];
+          copy.unshift(inputValue);
+          copyLike.unshift(0);
+          subtitleChange(copy);
+          setLike(copyLike);
+
+          let time = month + '월 ' + day + '일 ' + hours + ':'+ minutes + ':' + seconds + ' 발행';
+          let copyTime = [...times];
+          copyTime.unshift(time);
+          setTimes(copyTime);
+
+        }
       }}> 글 추가하기 </button>
 
 
